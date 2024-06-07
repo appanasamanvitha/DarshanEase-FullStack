@@ -17,7 +17,7 @@ function Bookings() {
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user)
     if (user) {
-      axios.get(`http://localhost:7000/organizer/getorganizerbookings/${user.id}`)
+      axios.get(`http://localhost:9000/organizer/getorganizerbookings/${user.id}`)
   .then((response) => {
     setOrders(response.data);
     console.log(response)
@@ -69,7 +69,7 @@ function Bookings() {
               >
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                   <div>
-                    <img src={`http://localhost:7000/organizer/${item?.templeImage}`} alt={`${item.itemtype} Image`} style={{ height: "100px" ,paddingBottom:"15px"}} />
+                    <img src={`http://localhost:9000/organizer/${item?.templeImage}`} alt={`${item.itemtype} Image`} style={{ height: "100px" ,paddingBottom:"15px"}} />
                   </div>
                   <div>
                     <p>TempleName:</p>

@@ -58,12 +58,12 @@ const Temples = () => {
 
   return (
   
-    <div className='content' style={{backgroundColor:"whitesmoke",paddingBottom:"50px",paddingTop:"20px"}} id='temples'>   
+    <div className='content' id='temples'>   
   
 
       <h1 className='text-center'>Temples</h1>
-      <Link  to='/utemples' style={{textDecoration:"none"}}>
-      <div style={{display:"flex", justifyContent:"space-around"}}>
+      <Link  to='/utemples' >
+      <div>
       <TempleCard 
         imageSrc="https://d3k1i85mml78tf.cloudfront.net/Blogs/1677258515580_post_image_1.jpg" 
         title="Shri Thakur Banke Bihari Ji Mandir"
@@ -82,7 +82,7 @@ const Temples = () => {
         description="Click here to Register Tirupati Tirumala Temple Online Darshan Booking"
       />  </div>
       <br/> 
-      <div style={{display:"flex", justifyContent:"space-around"}}>
+      <div >
       <TempleCard 
         imageSrc="https://imageio.forbes.com/blogs-images/jimdobson/files/2016/05/Sree_Padmanabhaswamy_Temple.jpg?height=459&width=711&fit=bounds" 
         title="Padmanabaswamy Temple"

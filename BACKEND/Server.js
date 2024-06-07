@@ -17,7 +17,7 @@ app.use(cors({
     credentials:true
 }));
 app.use('/user',userRoutes);
-app.use('/organiser',organiserRoutes);
+app.use('/organizer',organiserRoutes);
 app.use('/admin',adminRoutes);
 
 app.listen(9000,()=>{

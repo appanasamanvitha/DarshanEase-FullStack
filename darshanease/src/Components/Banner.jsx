@@ -15,7 +15,7 @@ const Banner = () => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,        // Enable autoplay
+        autoplay: true,        
         autoplaySpeed: 2000, 
         arrows:false
       };

@@ -17,7 +17,7 @@ function EditTemple() {
       const navigate = useNavigate();
     
       useEffect(() => {
-        axios.get(`http://localhost:7000/organizer/gettemplebyid/${id}`)
+        axios.get(`http://localhost:9000/organizer/gettemplebyid/${id}`)
           .then(response => {
             const templeData = response.data;
             setFormData({
@@ -55,7 +55,7 @@ function EditTemple() {
           formDataToSend.append('location', formData.location);
           formDataToSend.append('templeImage', formData.templeImage);
     
-          await axios.put(`http://localhost:7000/organizer/updatetemple/${id}`, formDataToSend);
+          await axios.put(`http://localhost:9000/organizer/updatetemple/${id}`, formDataToSend);
           alert('Temple updated successfully');
           navigate('/mytemple');
         } catch (error) {
@@ -153,7 +153,7 @@ function EditTemple() {
             className="border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div>
               <button
                 type="submit"
                 className="bg-blue-900 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

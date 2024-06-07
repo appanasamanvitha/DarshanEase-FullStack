@@ -46,7 +46,7 @@ function CreateTemple() {
       formDataToSend.append('organizerId', user.id);
 
 
-      await axios.post('http://localhost:7000/organizer/createtemple', formDataToSend);
+      await axios.post('http://localhost:9000/organizer/createtemple', formDataToSend);
       alert('Temple added successfully');
       console.log("temple created")
       navigate('/mytemple');

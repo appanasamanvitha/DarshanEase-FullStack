@@ -12,7 +12,7 @@ const Utemple = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:7000/organizer/gettemplebyid/${id}`)
+        axios.get(`http://localhost:9000/organizer/gettemplebyid/${id}`)
             .then((resp) => {
                 console.log(resp);
                 setItem(resp.data); // Set item to the fetched data (an object, not an array)
@@ -20,7 +20,7 @@ const Utemple = () => {
                 // Fetch darshan data using the organizerId from the item
                 const organizerId = resp.data.organizerId;
                 console.log(organizerId)
-                axios.get(`http://localhost:7000/organizer/getdarshanbyid/${organizerId}`)
+                axios.get(`http://localhost:9000/organizer/getdarshanbyid/${organizerId}`)
                     .then((response) => {
                         const darshanData = response.data;
                         setDarshan(darshanData);
@@ -40,29 +40,29 @@ const Utemple = () => {
 
 
     return (
-        <div style={{backgroundColor:"whitesmoke"}}>
+        <div>
             <Unavbar/>
             <br/>
             {item && (
                 <div>
-                    <div style={{ display: "flex", justifyContent: "center", height: "300px" }} >
-                        <img src={`http://localhost:7000/organizer/${item?.templeImage}`} width="500px"  />
+                    <div  >
+                        <img src={`http://localhost:9000/organizer/${item?.templeImage}`} width="500px"  />
                     </div>
                     <h1 className='text-center'> {item.eventName}</h1>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <div style={{ width: '38%', marginLeft: "150px" }}>
-                            <h2 style={{ color: "grey" }}><strong>Description</strong></h2>
-                            <hr style={{ height: "3px", backgroundColor: "black" }} />
-                            <p style={{ fontSize: "20px" }}>{item.description}</p>
+                    <div >
+                        <div >
+                            <h2><strong>Description</strong></h2>
+                            <hr />
+                            <p >{item.description}</p>
                         </div>
-                        <div style={{ marginRight: '300px' }}>
-                            <h2 style={{ color: "grey" }}><strong>Info</strong></h2>
+                        <div >
+                            <h2><strong>Info</strong></h2>
 
-                            <hr style={{ height: "3px", backgroundColor: "black" }} />
-                            <p style={{ fontSize: "20px" }}>open:  {item.open}AM</p>
-                            <p style={{ fontSize: "20px" }}>close:  {item.close}PM</p>
-                            <p style={{ fontSize: "20px" }}>organizer:  {item.organizerName}</p>
-                            <p style={{ fontSize: "20px" }}>Address:  {item.location}</p>
+                            <hr />
+                            <p >open:  {item.open}AM</p>
+                            <p >close:  {item.close}PM</p>
+                            <p >organizer:  {item.organizerName}</p>
+                            <p >Address:  {item.location}</p>
                         </div>
                     </div>
                     <div>
@@ -77,7 +77,7 @@ const Utemple = () => {
         <br/>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {darshan.map((item) => (
-            <div key={item._id} className="p-4 rounded shadow" style={{backgroundColor:"white"}} >
+            <div key={item._id} className="p-4 rounded shadow" >
               <div>
                 <p className="text-xl font-bold mb-2 text-center">{item.darshanName}</p>
                 <strong>

@@ -93,7 +93,7 @@ const Mytemple = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       axios
-        .get(`http://localhost:7000/organizer/gettemple/${user.id}`)
+        .get(`http://localhost:9000/organizer/gettemple/${user.id}`)
         .then((response) => {
           const templeData = response.data;
           setItems(templeData);
@@ -108,10 +108,16 @@ const Mytemple = () => {
   }, []);
 
   const deleteItem = (id) => {
-    axios.delete(`http://localhost:7000/eventdelete/${id}`);
-    window.location.assign('/myevents');
-    alert('Temple is deleted');
+    axios.delete(`http://localhost:9000/organizer/eventdelete/${id}`) // Updated URL
+      .then(() => {
+        alert('Darshan is deleted');
+        window.location.reload(); // Reload the page or navigate to another route if needed
+      })
+      .catch((error) => {
+        console.error('Error deleting darshan:', error);
+      });
   };
+  
 
   return (
     <div style={{backgroundColor:"whitesmoke"}}>
@@ -141,7 +147,7 @@ const Mytemple = () => {
             <div key={item._id} className="bg-white p-4 rounded shadow" >
                 <div     >
               <img
-                src={`http://localhost:7000/organizer/${item.templeImage}`}
+                src={`http://localhost:9000/organizer/${item.templeImage}`}
                 alt="Temple Image"
                 // className="rounded-t-lg w-full object-cover mb-4"
                 style={{ height: '250px',width:"500px"}}

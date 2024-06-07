@@ -22,7 +22,7 @@ function Ohome() {
       console.log(user)
       if (user) {
         axios
-          .get(`http://localhost:7000/organizer/gettemple/${user.id}`)
+          .get(`http://localhost:9000/organizer/gettemple/${user.id}`)
           .then((response) => {
             console.log('Response data:', response.data); // Log the response data
             const taskData = response.data;
@@ -36,7 +36,7 @@ function Ohome() {
       }
 
       // Fetch darshans data
-     axios.get(`http://localhost:7000/organizer/getdarshans/${user.id}`)
+     axios.get(`http://localhost:9000/organizer/getdarshans/${user.id}`)
     .then((response) => {
       setDarshans(response.data);
     })
@@ -45,7 +45,7 @@ function Ohome() {
     });
 
      // Fetch bookings data
-     axios.get(`http://localhost:7000/organizer/getorganizerbookings/${user.id}`)
+     axios.get(`http://localhost:9000/organizer/getorganizerbookings/${user.id}`)
     .then((response) => {
       setBookings(response.data);
     })
@@ -74,20 +74,20 @@ function Ohome() {
     <Onavbar/>
         <br/>
       <h3 className="text-3xl font-semibold mb-4 text-center" >DashBoard</h3>
-      <Card body style={{ backgroundColor: "lightgray", width: "80%", marginLeft: "10%", marginTop: "20px", height: "580px" }}>
+      <Card body >
         <div className="flex justify-around temples-center p-4">
           
-         <Link to="/myevents" style={{textDecoration:"none"}}>
+         <Link to="/myevents">
           <div className="w-64 h-32 bg-blue-700 rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"darkcyan"}}>
            Temples <br /> <br />{totaltemples}
          </div>
          </Link>
-         <Link to="/bookings" style={{textDecoration:"none"}}>
+         <Link to="/bookings" >
           <div className="w-64 h-32  rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"orange"}}>
            Darshans <br /> <br />{totaldarshans}
          </div>
          </Link>
-         <Link to="/bookings" style={{textDecoration:"none"}}>
+         <Link to="/bookings" >
           <div className="w-64 h-32  rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"green"}}>
            Total Bookings <br /> <br />{totalbookings}
          </div>
@@ -96,7 +96,7 @@ function Ohome() {
        <br/>
        <br/>
        <br/>
-       <div style={{paddingLeft:"350px"}}>
+       <div >
        <BarChart width={400} height={300} data={data} >
           <XAxis dataKey="name" />
           <YAxis />

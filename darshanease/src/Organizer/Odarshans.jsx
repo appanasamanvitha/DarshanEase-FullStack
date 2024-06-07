@@ -14,7 +14,7 @@ const Odarshans = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       axios
-        .get(`http://localhost:7000/organizer/getdarshans/${user.id}`)
+        .get(`http://localhost:9000/organizer/getdarshans/${user.id}`)
         .then((response) => {
           const templeData = response.data;
           setItems(templeData);
@@ -29,20 +29,26 @@ const Odarshans = () => {
   }, []);
 
   const deleteItem = (id) => {
-    axios.delete(`http://localhost:7000/eventdelete/${id}`);
-    window.location.assign('/myevents');
-    alert('Temple is deleted');
+    axios.delete(`http://localhost:9000/organizer/eventdelete/${id}`) // Updated URL
+      .then(() => {
+        alert('Darshan is deleted');
+        window.location.reload(); // Reload the page or navigate to another route if needed
+      })
+      .catch((error) => {
+        console.error('Error deleting darshan:', error);
+      });
   };
+  
 
   return (
     <div>
        
       <Onavbar />
       <div className="container mx-auto p-8" >
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: '20px' }}>
+        <div >
          
-            <Button style={{ backgroundColor: 'lightslategray', border: 'none' }}>
-              <Link to="/createdarshan" style={{ color: 'white', textDecoration: 'none' }} className="editTempleLink">
+            <Button >
+              <Link to="/createdarshan"  className="editTempleLink">
                 Create Darshan
               </Link>
             </Button>
