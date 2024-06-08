@@ -29,7 +29,7 @@ function CreatedDarshan() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       axios
-        .get(`http://localhost:7000/organizer/gettemple/${user.id}`)
+        .get(`http://localhost:9000/organizer/gettemple/${user.id}`)
         .then((response) => {
           const templeData = response.data;
           setItems(templeData);
@@ -82,7 +82,7 @@ function CreatedDarshan() {
 
       formDataToSend.open = moment.tz(formData.open, 'HH:mm', 'Asia/Kolkata').format('hh:mm A');
       formDataToSend.close = moment.tz(formData.close, 'HH:mm', 'Asia/Kolkata').format('hh:mm A');
-      await axios.post('http://localhost:7000/organizer/createdarshan', formDataToSend);
+      await axios.post('http://localhost:9000/organizer/createdarshan', formDataToSend);
       alert('darshan added successfully');
       console.log("Darshan created");
       navigate('/odarshans');
@@ -100,7 +100,7 @@ function CreatedDarshan() {
         <div
           className="mt-8 p-4 border rounded shadow-lg rounded-lg shadow-md"
           style={{
-            width: '35%',
+            width: 'auto',
             background: 'linear-gradient(to left, #009696, #4CAF57)', // Change these colors to your desired gradient
           }}
         >
@@ -193,7 +193,7 @@ function CreatedDarshan() {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <button
                 type="submit"
-                className="bg-blue-900 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-blue-900 hover:bg-blue-500 text-black font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Create
               </button>

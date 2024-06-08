@@ -17,6 +17,7 @@ const Onavbar = () => {
             <Link to="/odarshans" style={{ padding: "10px", color: "white", textDecoration: "none" }}>Darshans</Link>
             <Link to="/bookings" style={{ padding: "10px", color: "white", textDecoration: "none" }}>Bookings</Link>
             <Link to="/createtemple" style={{ padding: "10px", color: "white", textDecoration: "none" }}>Create Temple</Link>
+            <Link to="/createdarshan" style={{ padding: "10px", color: "white", textDecoration: "none" }}>Create darshan</Link>
             <Link to="/" style={{ paddingLeft: "10px", paddingTop: "10px", color: "white", textDecoration: "none" }}>Logout</Link>
             <h4 style={{ color: "white", paddingTop: "0px" }}>({JSON.parse(name).name})</h4>
           </Nav>

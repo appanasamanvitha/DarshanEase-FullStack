@@ -7,7 +7,7 @@ const app = express();
 
 //importing api's
 const userRoutes = require('./Routing/Users')
-const organiserRoutes = require('./Routing/Organizers')
+const organizerRoutes = require('./Routing/Organizers.js')
 const adminRoutes = require('./Routing/Admins')
 
 app.use(bodyParser.json());
@@ -17,7 +17,7 @@ app.use(cors({
     credentials:true
 }));
 app.use('/user',userRoutes);
-app.use('/organizer',organiserRoutes);
+app.use('/organizer',organizerRoutes);
 app.use('/admin',adminRoutes);
 
 app.listen(9000,()=>{
