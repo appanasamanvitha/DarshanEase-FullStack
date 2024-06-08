@@ -261,7 +261,7 @@ router.get('/getdarshans', (req, res) => {
 router.get('/getorganizerbookings/:userId', async (req, res) => {
     const organizerId = req.params.userId;
     try {
-        const tasks = await bookings.find({ organizerId }).sort('position');
+        const tasks = await Bookings.find({ organizerId }).sort('position');
         res.json(tasks);
     } catch (error) {
         console.error('Error fetching bookings by organizer ID:', error);

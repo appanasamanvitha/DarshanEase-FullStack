@@ -101,10 +101,10 @@ function CreatedDarshan() {
           className="mt-8 p-4 border rounded shadow-lg rounded-lg shadow-md"
           style={{
             width: 'auto',
-            background: 'linear-gradient(to left, #009696, #4CAF57)', // Change these colors to your desired gradient
+            background: 'linear-gradient(to left,white)', // Change these colors to your desired gradient
           }}
         >
-          <h2 className="text-2xl font-semibold mb-4 text-center">Create Darshan</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-center color-black">Create Darshan</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4" style={{ display: 'flex', justifyContent: 'space-around' }}>
               <div>
