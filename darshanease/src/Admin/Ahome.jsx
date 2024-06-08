@@ -16,7 +16,7 @@ function Ahome() {
 
   useEffect(() => {
     // Fetch user data
-    axios.get(`http://localhost:7000/user/users`)
+    axios.get(`http://localhost:9000/user/users`)
       .then((response) => {
         setUsers(response.data);
       })
@@ -25,7 +25,7 @@ function Ahome() {
       });
 
     // Fetch organizers data
-    axios.get(`http://localhost:7000/organizer/organizers`)
+    axios.get(`http://localhost:9000/organizer/organizers`)
       .then((response) => {
         setVendors(response.data);
       })
@@ -34,7 +34,7 @@ function Ahome() {
       });
 
       // Fetch temples data
-    axios.get(`http://localhost:7000/organizer/gettemples`)
+    axios.get(`http://localhost:9000/organizer/gettemples`)
     .then((response) => {
       setTemples(response.data);
     })
@@ -43,7 +43,7 @@ function Ahome() {
     });
 
       // Fetch darshans data
-      axios.get(`http://localhost:7000/organizer/getdarshans`)
+      axios.get(`http://localhost:9000/organizer/getdarshans`)
     .then((response) => {
       setDarshans(response.data);
     })
@@ -52,7 +52,7 @@ function Ahome() {
     });
 
       // Fetch bookings data
-      axios.get(`http://localhost:7000/user/getbookings`)
+      axios.get(`http://localhost:9000/user/getbookings`)
     .then((response) => {
       setOrders(response.data);
     })

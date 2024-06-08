@@ -19,7 +19,7 @@ const OrganizerEdit = ({ match }) => {
         // Fetch user data when the component mounts
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:7000/organizer/organizer/${id}`);
+                const response = await axios.get(`http://localhost:9000/organizer/organizer/${id}`);
                 setUser(response.data);
             } catch (error) {
                 console.error(error);
@@ -36,7 +36,7 @@ const OrganizerEdit = ({ match }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:7000/organizer/organizeredit/${id}`, user);
+            await axios.put(`http://localhost:9000/organizer/organizeredit/${id}`, user);
             alert('User updated successfully');
             navigate('/organizers');
             console.log("Updated successfully");
