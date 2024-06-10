@@ -22,7 +22,7 @@ function Ohome() {
       console.log(user)
       if (user) {
         axios
-          .get(`http://localhost:9000/organizer/gettemple/${user.id}`)
+          .get(`http://localhost:9000/organizer/gettemples`)
           .then((response) => {
             console.log('Response data:', response.data); // Log the response data
             const taskData = response.data;
@@ -36,7 +36,7 @@ function Ohome() {
       }
 
       // Fetch darshans data
-     axios.get(`http://localhost:9000/organizer/getdarshans/${user.id}`)
+     axios.get(`http://localhost:9000/organizer/getdarshans`)
     .then((response) => {
       setDarshans(response.data);
     })
@@ -45,7 +45,7 @@ function Ohome() {
     });
 
      // Fetch bookings data
-     axios.get(`http://localhost:9000/organizer/getorganizerbookings/${user.id}`)
+     axios.get(`http://localhost:9000/user/getbookings`)
     .then((response) => {
       setBookings(response.data);
     })
@@ -77,17 +77,17 @@ function Ohome() {
       <Card body >
         <div className="flex justify-around temples-center p-4">
           
-         <Link to="/myevents">
-          <div className="w-64 h-32 bg-blue-700 rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"darkcyan"}}>
+         <Link to="/Otemp">
+          <div className="w-64 h-32 bg-blue-700 rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"pink"}}>
            Temples <br /> <br />{totaltemples}
          </div>
          </Link>
-         <Link to="/bookings" >
+         <Link to="/odarsh" >
           <div className="w-64 h-32  rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"orange"}}>
            Darshans <br /> <br />{totaldarshans}
          </div>
          </Link>
-         <Link to="/bookings" >
+         <Link to="/getbookings" >
           <div className="w-64 h-32  rounded-lg shadow-md flex flex-col justify-center temples-center text-xl font-bold text-gray-800 text-center" style={{backgroundColor:"green"}}>
            Total Bookings <br /> <br />{totalbookings}
          </div>

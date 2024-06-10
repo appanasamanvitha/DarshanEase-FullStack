@@ -50,7 +50,7 @@ const deleteData = (taskId) => {
   
   const fetchUserBikeData = (userId) => {
    
-    axios.get(`http://localhost:7000/organizer/gettemple/${userId}`)
+    axios.get(`http://localhost:9000/organizer/gettemple/${userId}`)
     .then((response) => {
       setUserbookings(response.data);
       toggleDetails(); // Show Plan Details when data is fetched
@@ -76,7 +76,7 @@ const deleteData = (taskId) => {
     <br />
     <h1 className='text-center'>Organizers </h1> <br />
     <div style={{display:"flex",justifyContent:"center"}}>
-    <Table striped bordered hover variant="dark" style={{width:"70%"}}>
+    <Table striped bordered hover  style={{width:"50%"}}>
       <thead>
         <tr>
           <th>sl/no</th>

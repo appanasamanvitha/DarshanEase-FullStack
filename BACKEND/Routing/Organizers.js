@@ -5,7 +5,6 @@ const Organizer = require('../db/Organizer/OrganizerSchema')
 const Darshan = require('../db/Organizer/DarshanSchema')
 const Temple = require('../db/Organizer/TempleSchema')
 const Bookings=require('../db/User/UserBooking')
-// Multer configuration for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads');
@@ -161,10 +160,12 @@ router.get('/gettemple/:organizerId', async (req, res) => {
 
 router.get('/gettemples', (req, res) => {
     Temple.find()
-        .then((savedTemples) => res.status(201).json(savedTemples))
-        .catch((error) => {
-            console.error('Error fetching temples:', error);
-            res.status(400).json({ error: 'Failed to get temples' });
+        .then((user)=>{
+            res.status(200).json(user)
+        })
+        .catch(() => {
+            console.error('Error fetching temples');
+            res.sendStatus(500);
         });
 });
 

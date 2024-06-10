@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../Components/navbar.css';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
-
+import bg from '../assets/bg2.png'
+import bgm from '../assets/bg3.png'
 const Temples = () => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -15,7 +16,7 @@ const Temples = () => {
   };
 
   return (
-    <div className='content' id='temples'>
+    <div className='content' id='temples'  style={{backgroundImage:`url(${bg})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
       <h1 className='text-center'>Temples</h1>
       <Link to='/utemples'>
         <div className='d-flex flex-wrap justify-content-center'>
@@ -26,7 +27,7 @@ const Temples = () => {
             onMouseOut={handleMouseOut}
           >
             {isHovered ? (
-              <Card.Body>
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
                 <Card.Text>
                   <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
                   <strong>Shri Thakur Banke Bihari Ji Mandir</strong> <br /> <br />
@@ -49,7 +50,7 @@ const Temples = () => {
             onMouseOut={handleMouseOut}
           >
             {isHovered ? (
-              <Card.Body>
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
                 <Card.Text>
                   <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
                   <strong>Shiv Khori Mandir</strong> <br /> <br />
@@ -72,7 +73,7 @@ const Temples = () => {
             onMouseOut={handleMouseOut}
           >
             {isHovered ? (
-              <Card.Body>
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
                 <Card.Text>
                   <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
                   <strong>Tirupati Tirumala Temple</strong> <br /> <br />
@@ -95,7 +96,7 @@ const Temples = () => {
             onMouseOut={handleMouseOut}
           >
             {isHovered ? (
-              <Card.Body>
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
                 <Card.Text>
                   <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
                   <strong>Padmanabaswamy Temple</strong> <br /> <br />
@@ -118,7 +119,7 @@ const Temples = () => {
             onMouseOut={handleMouseOut}
           >
             {isHovered ? (
-              <Card.Body>
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
                 <Card.Text>
                   <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
                   <strong>Shirdi Sai Baba Mandir</strong> <br /> <br />
@@ -141,7 +142,7 @@ const Temples = () => {
             onMouseOut={handleMouseOut}
           >
             {isHovered ? (
-              <Card.Body>
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
                 <Card.Text>
                   <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
                   <strong>Golden Temple</strong> <br /> <br />

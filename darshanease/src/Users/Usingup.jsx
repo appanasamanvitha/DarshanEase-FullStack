@@ -33,14 +33,14 @@ const Usignup = () => {
   };
 
   return (
-    <div>
-    <div className="flex items-center justify-center min-h-screen bg-white"> 
+    <div style={{backgroundColor: "#f3f4f6"}}>
+    <div className="flex items-center justify-center min-h-screen bg-#f3f4f6" > 
    
     <h2 style={{ position: "relative", bottom: "300px", right: "300px", transform: "scaleX(-1.5)",}} > <Link to="/" className='text-gray-500 hover:text-gray-900'><FaSignOutAlt/></Link></h2>
 
       <div className="relative  bg-green-700 p-8 rounded-md shadow-md overflow-hidden" style={{display:"flex",height:"440px",width:"620px"}}>
       <div>
-      <img src='https://th.bing.com/th?id=OIP.evJKu33g-MzcgDdhbcKBdwHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2'  style={{marginRight:"35px",height:"380px",width:"270px"}} />
+      <img src='https://i.pinimg.com/originals/76/e0/a7/76e0a7523d04994163f4c8ff1d897349.jpg'  style={{marginRight:"35px",height:"380px",width:"270px"}} />
       </div>
         <div className="relative z-10" style={{width:"270px"}}>  
           <div>

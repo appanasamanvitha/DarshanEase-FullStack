@@ -6,6 +6,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Ulogin from './Users/Ulogin';
 import Ologin from './Organizer/Ologin';
 import Osignup from './Organizer/Osignup';
+import Otemp from './Organizer/Otemples';
 import Usignup from './Users/Usingup';
 import Alogin from './Admin/Alogin';
 import Asignup from './Admin/Asingup';
@@ -26,9 +27,12 @@ import Ahome from './Admin/Ahome';
 import Anavbar from './Admin/Anavbar';
 import Users from './Admin/Users';
 import Organizers from './Admin/Organizers';
+import Atemp from './Admin/Agettemple';
 import UserEdit from './Admin/UserEdit';
+import Adarsha from './Admin/Adarshan';
 import OrganizerEdit from './Admin/OrganizerEdit';
-
+import Abooki from './Admin/Agetbookings';
+import Obooking from './Organizer/Ogetbooking';
 function App() {
 
   return (
@@ -42,8 +46,10 @@ function App() {
     <Route path='/users' element={<Users/>}/> 
     <Route path='/useredit/:id' element={<UserEdit/>}/> 
     <Route path='/organizers' element={<Organizers/>}/> 
-    <Route path='/organizeredit/:id' element={<OrganizerEdit/>}/> 
-
+    <Route path='/organizeredit/:id' element={<OrganizerEdit/>}/>
+    <Route path='/temples' element={<Atemp/>}/> 
+    <Route path='/darshans' element={<Adarsha/>}/>
+    <Route path='/getbooking' element={<Abooki/>}/>
 
 
 
@@ -56,6 +62,10 @@ function App() {
     <Route path="/edittemple/:id" element={<EditTemple/>} />
     <Route path='/createdarshan' element={<CreatedDarshan/>}/>
     <Route path='/bookings' element={<Bookings/>}/>
+    <Route path = '/odarsh' element={<Odarshans/>}/>
+    <Route path='/Otemp' element={<Otemp/>}/>
+    <Route path='/getbookings' element={<Obooking/>}/>
+  
 
 
 

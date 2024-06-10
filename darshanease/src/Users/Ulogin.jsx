@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { FaSignOutAlt } from 'react-icons/fa';
-
-
 
 const Ulogin = () => {
   const [email, setEmail] = useState('');
@@ -22,8 +20,8 @@ const Ulogin = () => {
         if (res.data.Status === "Success") {
           console.log(res.data.user);
           localStorage.setItem('user', JSON.stringify(res.data.user));
-            navigate('/uhome')
-           alert("login successful")
+          navigate('/uhome');
+          alert("login successful");
         } else {
           alert("wrong credentials");
         }
@@ -37,34 +35,17 @@ const Ulogin = () => {
   };
 
   return (
-    <div>
-
-    <div className="flex items-center justify-center min-h-screen bg-white"> 
-   
-    <h2 style={{ position: "relative", bottom: "300px", right: "300px", transform: "scaleX(-1.5)",}} > <Link to="/" className='text-gray-500 hover:text-gray-900'><FaSignOutAlt/></Link></h2>
-
-      <div className="relative  bg-green-700 p-8 rounded-md shadow-md overflow-hidden" style={{display:"flex",height:"420px",width:"620px"}}>
-      <div>
-        <img src='https://i.pinimg.com/originals/9a/a6/12/9aa612d9c56c38e14b009f2184b67039.jpg'  style={{marginRight:"35px",height:"360px",width:"270px"}} />
-      </div>
-        <div className="relative z-10" style={{width:"270px"}}>  
-          <div>
-            <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-4"  >
-              Login to user account
-            </h2>
-            
-          </div>
-          
-      
-          <form className="space-y-6" onSubmit={handleSubmit}>
-       
-          {/* <form className="space-y-6" onSubmit={handleSubmit}> */}
-            {/* Email Input */}
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh", backgroundColor: "#f3f4f6" }}>
+      <Link to="/" style={{ position: "absolute", top: "10px", right: "10px", color: "black" }}><FaSignOutAlt/></Link>
+      <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <div>
+          <img src='https://i.pinimg.com/originals/76/e0/a7/76e0a7523d04994163f4c8ff1d897349.jpg' alt="Background" style={{ height: "360px", width: "270px" }} />
+        </div>
+        <div>
+          <h2 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}>Login to user account</h2>
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <div>
-                
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email address
-              </label>
+              <label htmlFor="email" style={{ fontSize: "1rem", marginBottom: "0.5rem" }}>Email address</label>
               <input
                 id="email"
                 name="email"
@@ -73,16 +54,12 @@ const Ulogin = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                style={{ padding: "0.5rem", border: "1px solid #ccc", borderRadius: "5px" }}
                 placeholder="Email address"
               />
             </div>
-
-            {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                Password
-              </label>
+              <label htmlFor="password" style={{ fontSize: "1rem", marginBottom: "0.5rem" }}>Password</label>
               <input
                 id="password"
                 name="password"
@@ -91,40 +68,34 @@ const Ulogin = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                style={{ padding: "0.5rem",paddingLeft:"1rem", border: "1px solid #ccc", borderRadius: "5px" }}
                 placeholder="Password"
               />
             </div>
-
-            {/* Submit Button */}
-            <div>
+            <button
+              type="submit"
+              style={{ backgroundColor: "#ff4d4d", color: "white", padding: "0.5rem 1rem", border: "none", borderRadius: "5px", cursor: "pointer", transition: "background-color 0.3s" }}
+            >
+              Log in
+            </button>
+            <p style={{ fontSize: "0.875rem" }}>
+              Don't have an account? Create
               <button
-                type="submit"
-                className="bg-red-300 hover:bg-red-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-indigo-300 transition-all duration-300"
+                onClick={formHandle1}
+                style={{ color: "#ff4d4d", marginLeft: "0.5rem", border: "none", background: "none", cursor: "pointer", textDecoration: "underline" }}
               >
-                Log in
+                Signup
               </button>
-              <br />
-              <p className="mt-2 text-sm text-gray-400">
-                Don't have an account? Create
-                <button
-                  onClick={formHandle1}
-                  className="ml-2 text-red-500 hover:underline focus:outline-none focus:ring focus:border-indigo-300 transition-all duration-300"
-                >
-                  Signup
-                </button>
-              </p>
-            </div>
+            </p>
           </form>
-          {/* </form> */}
         </div>
-
-        {/* Backside tilted background */}
-        
       </div>
+      <div style={{ marginTop: "2rem", textAlign: "center", width: "270px" }}>
+        <p style={{ fontStyle: "italic", fontSize: "0.875rem", color: "#666", margin: "0 auto" }}>
+          "Success is not final, failure is not fatal: It is the courage to continue that counts." - Winston Churchill
+        </p>
       </div>
     </div>
-   
   );
 };
 

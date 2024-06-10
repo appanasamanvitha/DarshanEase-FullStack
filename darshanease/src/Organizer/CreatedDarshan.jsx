@@ -5,7 +5,6 @@ import Onavbar from './Onavbar';
 import moment from 'moment';
 import 'moment-timezone';
 
-
 function CreatedDarshan() {
   const [items, setItems] = useState([]);
   const [formData, setFormData] = useState({  
@@ -14,14 +13,12 @@ function CreatedDarshan() {
     open: '',
     close: '',
     prices: {
-          normal:'',
-          vip:'',
+      normal:'',
+      vip:'',
     },
   });
   const { id } = useParams();
  
-
-
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -43,15 +40,11 @@ function CreatedDarshan() {
     }
   }, []);
   
-
   const handleChange = (e) => {
     const { name, value } = e.target;
   
     if (name.startsWith('prices')) {
-      // Initialize formData.prices if it's undefined
       const newPrices = formData.prices ? { ...formData.prices } : {};
-      
-      // Handle nested property in prices
       const priceType = name.split('.')[1];
       newPrices[priceType] = value;
   
@@ -60,13 +53,10 @@ function CreatedDarshan() {
         prices: newPrices,
       });
     } else {
-      // Handle other properties
       setFormData({ ...formData, [name]: value });
     }
   };
   
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -75,24 +65,22 @@ function CreatedDarshan() {
         ...formData,
         organizerName: user.name,
         organizerId: user.id,
-        templeName: items[0]?.templeName, // Access templeName using index if items is an array
-        location:items[0]?.location,
+        templeName: items[0]?.templeName,
+        location: items[0]?.location,
         templeImage: items[0]?.templeImage
       };
 
       formDataToSend.open = moment.tz(formData.open, 'HH:mm', 'Asia/Kolkata').format('hh:mm A');
       formDataToSend.close = moment.tz(formData.close, 'HH:mm', 'Asia/Kolkata').format('hh:mm A');
       await axios.post('http://localhost:9000/organizer/createdarshan', formDataToSend);
-      alert('darshan added successfully');
+      alert('Darshan added successfully');
       console.log("Darshan created");
       navigate('/odarshans');
     } catch (error) {
-      console.error('Error adding temple: ', error);
+      console.error('Error adding darshan: ', error);
     }
   };
   
-  
-
   return (
     <div>
       <Onavbar />
@@ -100,11 +88,11 @@ function CreatedDarshan() {
         <div
           className="mt-8 p-4 border rounded shadow-lg rounded-lg shadow-md"
           style={{
-            width: 'auto',
-            background: 'linear-gradient(to left,white)', // Change these colors to your desired gradient
+            width: '100%',
+            background: 'linear-gradient(to left, #009696, #4CAF57)',
           }}
         >
-          <h2 className="text-2xl font-semibold mb-4 text-center color-black">Create Darshan</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-center">Create Darshan</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4" style={{ display: 'flex', justifyContent: 'space-around' }}>
               <div>
@@ -137,7 +125,7 @@ function CreatedDarshan() {
                 />
               </div>
               <div>
-                <label className="block text-black-900 text-center">close</label>
+                <label className="block text-black-900 text-center">Close</label>
                 <input
                   type="time"
                   name="close"
@@ -152,31 +140,30 @@ function CreatedDarshan() {
             </div>
             <label className="block text-black-900 text-center">Prices</label>
             <div className="mb-4" style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <div className="mb-4">
-              <label className="block text-black-900 text-center">Normal Price</label>
-              <input
-                type="text"
-                name="prices.normal"
-                placeholder="Normal Price"
-                value={formData.prices.normal}
-                onChange={handleChange}
-                className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-black-900 text-center">Vip Price</label>
-              <input
-                type="text"
-                name="prices.vip"
-                placeholder="Vip Price"
-                value={formData.prices.vip}
-                onChange={handleChange}
-                className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
+              <div className="mb-4">
+                <label className="block text-black-900 text-center">Normal Price</label>
+                <input
+                  type="text"
+                  name="prices.normal"
+                  placeholder="Normal Price"
+                  value={formData.prices.normal}
+                  onChange={handleChange}
+                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-black-900 text-center">Vip Price</label>
+                <input
+                  type="text"
+                  name="prices.vip"
+                  placeholder="Vip Price"
+                  value={formData.prices.vip}
+                  onChange={handleChange}
+                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
             </div>
             <div className="mb-4">
               <label className="block text-black-900 text-center">Description</label>
@@ -189,7 +176,6 @@ function CreatedDarshan() {
                 required
               />
             </div>
-
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <button
                 type="submit"
@@ -200,6 +186,8 @@ function CreatedDarshan() {
             </div>
           </form>
         </div>
+     
+
       </div>
     </div>
   );

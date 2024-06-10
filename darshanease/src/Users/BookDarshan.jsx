@@ -1,205 +1,163 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Unavbar from './Unavbar';
-import './user.css'
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
+import QRCode from "react-qr-code";
+import { FaDownload } from 'react-icons/fa';
+import Footer from '../Components/Footer';
 
-function BookDarshan() {
-  const [item, setItem] = useState({});
-  const [selectedDarshan, setSelectedDarshan] = useState('normal');
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phno: '',
-  });
-
-  const [quantity, setQuantity] = useState(1);
-
-  const increase = () => {
-    setQuantity(quantity + 1);
-  };
-  const decrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const { id } = useParams();
+function Mybookings() {
+  const [items, setItems] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
   const navigate = useNavigate();
+  const pdref = useRef();
 
   useEffect(() => {
-    axios.get(`http://localhost:7000/user/darshan/${id}`)
-      .then((resp) => {
-        console.log('API Response:', resp.data);
-        setItem(resp.data);
-      })
-      .catch((error) => {
-        console.log("Failed to fetch item data:", error);
-      });
-  }, [id]);
-  
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleChangeDarshan = (e) => {
-    setSelectedDarshan(e.target.value);
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-        console.log('Item:', item);
-      // Ensure item is available and contains the required properties
-      if (!item || !item.organizerName || !item.organizerId || !item.description || !item.templeName || !item.darshanName || !item.close || !item.open || !item.prices || !item.location || !item.templeImage) {
-        throw new Error('Item data is missing required properties');
-      }
-
-      const { organizerName, description, prices,darshanName,templeName, location, templeImage, organizerId,close,open } = item;
-
-      const totalAmount = parseInt(prices[selectedDarshan]*quantity, 10) + 49;
-     
-      // const quantity=quantity;
-      const quantityValue = quantity;
-
-      // Add the item properties to the formData
-      const updatedFormData = {
-        ...formData,
-        quantity:quantityValue,
-        totalamount: totalAmount,
-        organizerName: organizerName,
-        organizerId: organizerId,
-        description: description,
-        templeName: templeName,
-        darshanName: darshanName,
-        location: location,
-        templeImage: templeImage,
-        open: open,
-        close: close,
-      };
-
-      // You can add user-specific data here
-      const userid = JSON.parse(localStorage.getItem('user')).id;
-      const username = JSON.parse(localStorage.getItem('user')).name;
-      updatedFormData.userId = userid;
-      updatedFormData.userName = username;
-
-      // Post the updatedFormData
-      await axios.post('http://localhost:7000/user/userbooking', updatedFormData);
-      console.log(updatedFormData);
-      alert('booked successfully');
-      navigate('/mybookings');
-    } catch (error) {
-      console.error('Error booking:', error);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      axios
+        .get(`http://localhost:9000/user/getbookings`)
+        .then((response) => {
+          const taskData = response.data;
+          setItems(taskData);
+          console.log(taskData)
+        })
+        .catch((error) => {
+          console.error('Error fetching tasks: ', error);
+        });
+    } else {
+      console.log('ERROR');
     }
+  }, []);
+
+  const calculateStatus = (Delivery) => {
+    const currentDate = new Date();
+    const formattedDeliveryDate = new Date(Delivery);
+    return formattedDeliveryDate >= currentDate ? 'upcomming' : 'completed';
+  };
+
+  const preloadImages = (item) => {
+    const imagePromises = [];
+    imagePromises.push(
+      new Promise((resolve) => {
+        const img = new Image();
+        img.src = `http://localhost:9000/organizer/${item.templeImage}`;
+        img.onload = () => resolve(img);
+      })
+    );
+    return Promise.all(imagePromises);
+  };
+
+  const downloadpdf = async () => {
+    if (!selectedCard) {
+      console.error('No card selected for download');
+      return;
+    }
+
+    await preloadImages(selectedCard);
+
+    const input = pdref.current;
+    const options = {
+      scale: 2,
+      useCORS: true,
+    };
+
+    html2canvas(input, options).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jspdf('p', 'mm', 'a2', true);
+      pdf.setProperties({
+        title: 'My Booking',
+        subject: 'Booking Details',
+      });
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 30;
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save(`booking_${selectedCard._id.slice(0, 10)}.pdf`);
+    });
   };
 
   return (
-    <div style={{ backgroundColor: '' }}>
+    <div>
       <Unavbar />
-      <div style={{ display: 'flex ' }} >
-        <div className="max-w-md mx-auto mt-8 p-4 border rounded shadow-lg bg-white">
-          <h2 className="text-2xl font-semibold" >Your Booking is almost Done! </h2>
-          {/* <p>item name:{item.itemtype}</p> */}
-          <form onSubmit={handleSubmit}>
+      <div style={{ paddingTop: '100px', marginLeft: '65px', marginRight: '65px' }}>
+        <h1 className='text-center'>My Bookings</h1>
+        <div>
+          {items.map((item) => {
+            const status = calculateStatus(item.date);
 
-            <div >
-              <label className="block text-gray-600 text-center" style={{ paddingTop: "10px" }}>Details:</label>
-              <div class="input-container">
+            return (
+              <Card
+                key={item._id}
+                style={{
+                  width: '90%',
+                  margin: '0 auto',
+                  backgroundColor: '#fff',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '8px',
+                  padding: '15px',
+                  marginBottom: '35px',
+                }}
+                ref={pdref}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <img src={`http://localhost:9000/organizer/${item.templeImage}`} style={{ height: '80px' }} alt="Temple" />
+                  </div>
+                  <div>
+                    <QRCode
+                      size={86}
+                      value={item._id.slice(0, 10)}
+                      viewBox={`0 0 256 256`}
+                    />
+                  </div>
+                  <div>
+                    <p>BookingId:</p>
+                    <p>{item._id.slice(0, 10)}</p>
+                  </div>
+                  <div>
+                    <p>Darshan Name:</p>
+                    <p>{item.darshanName}</p>
+                  </div>
+                  <div>
+                    <p>BookingDate</p>
+                    <p>{item.BookingDate}</p>
+                  </div>
+                </div>
 
-                <input type="text" id="myInput" class="w-48 p-2 border border-gray-300 rounded focus:outline-none" placeholder=" " style={{ width: "340px" }}
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-                <label for="myInput" class="absolute left-2 transform -translate-y-1/2 bg-white px-1 pointer-events-none transition-transform">
-                 name
-                </label>
-              </div>
-            </div><br />
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div >
-                <div class="input-container">
-                  <input type="text" id="myInput" class="w-48 p-2 border border-gray-300 rounded focus:outline-none" placeholder=" "
-                    style={{ width: "160px" }}
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  <label for="myInput" class="absolute left-2 transform -translate-y-1/2 bg-white px-1 pointer-events-none transition-transform">
-                    Email
-                  </label>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '8px' }}>
+                  <Button
+                    onClick={() => {
+                      setSelectedCard(item);
+                      downloadpdf();
+                    }}
+                    style={{
+                      backgroundColor: 'green',
+                      transition: 'background-color 0.3s ease-in-out',
+                      borderStyle: "none"
+                    }}
+                    onMouseEnter={(e) => (e.target.style.backgroundColor = '#1EC000')}
+                    onMouseLeave={(e) => (e.target.style.backgroundColor = 'green')}
+                  >
+                    <FaDownload />
+                  </Button>
                 </div>
-              </div>
-              <div >
-                <div class="input-container">
-                  <input type="text" id="myInput" class="w-48 p-2 border border-gray-300 rounded focus:outline-none" placeholder=" "
-                    style={{ width: "160px" }}
-                    name="phno"
-                    value={formData.phno}
-                    onChange={handleChange}
-                  />
-                  <label for="myInput" class="absolute left-2 transform -translate-y-1/2 bg-white px-1 pointer-events-none transition-transform">
-                    phno:-
-                  </label>
-                </div>
-              </div>  
-            </div>
-            <br/>
-            <div >
-              <label>Your darshan</label>
-              <div className="select-container"> {/* New div for styling */}
-                <select value={selectedDarshan} onChange={handleChangeDarshan}>
-                  <option value="normal">Normal Darshan</option>
-                  <option value="vip">Vip Darshan</option>
-                </select>
-              </div>
-            </div>
-            <br />
-            {item && item.prices &&(
-              <div>
-                <div style={{ display: "flex", justifyContent: "flex-end", height: "100%", width: "100%" }} >
-                </div>
-                <div style={{ display: 'flex', justifyContent: "space-between" }}>
-                <p style={{ fontSize: "17px" }}>Quantity:</p>
-                 <div>
-                 <button onClick={decrease}   type="button" style={{ backgroundColor: 'wheat',width:"20px",marginRight:"7px" }}>
-                    -
-                  </button>
-                   {quantity}
-                  <button onClick={increase}    type="button" style={{ backgroundColor: 'wheat',width:"20px",marginLeft:"7px" }} >
-                    +
-                  </button>
-                 </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: "space-between" }}>
-              <p style={{ fontSize: "17px" }}>Price:</p>
-              <p> ₹ {quantity * item.prices[selectedDarshan]}</p>
-            </div>
-                <div style={{ display: 'flex', justifyContent: "space-between" }}>
-                  <p style={{ fontSize: "17px" }}>Convience Fee:</p>
-                  <p>₹ 45</p>
-                </div>
-                <div style={{ display: 'flex', justifyContent: "space-between" }}>
-                  <p style={{ fontSize: "17px" }}>Total Amount:</p>
-                  <p> ₹ {parseInt(quantity * item.prices[selectedDarshan]) + 45}</p>
-                </div>
-              </div>
-            )}
-            <button
-              type="submit"
-              style={{ width: "340px" }}
-              className="bg-blue-400 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Book
-            </button>
-          </form>
+              </Card>
+            );
+          })}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
 
-export default BookDarshan;
+export default Mybookings;

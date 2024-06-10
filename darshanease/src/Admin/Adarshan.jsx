@@ -3,38 +3,31 @@ import axios from 'axios';
 import { Button, Table, Card } from 'react-bootstrap';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Onavbar from './Onavbar';
+import Anavbar from './Anavbar';
 
-const Odarshan = () => {
+const Adarshan = () => {
   const [darshans, setDarshans] = useState([]);
   const [selectedDarshan, setSelectedDarshan] = useState(null);
 
   useEffect(() => {
-    const fetchDarshans = async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user) {
-          throw new Error('User not found');
-        }
-
-        const response = await axios.get(`http://localhost:9000/organizer/getdarshans`);
+    axios.get('http://localhost:9000/organizer/getdarshans')
+      .then((response) => {
         setDarshans(response.data);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error('Error fetching darshans:', error);
-      }
-    };
-
-    fetchDarshans();
+      });
   }, []);
 
-  const deleteDarshan = async (darshanId) => {
-    try {
-      await axios.delete(`http://localhost:9000/organizer/eventdelete/${darshanId}`);
-      setDarshans(darshans.filter(darshan => darshan._id !== darshanId));
-      alert('Darshan deleted');
-    } catch (error) {
-      console.error('Error deleting darshan:', error);
-    }
+  const deleteDarshan = (darshanId) => {
+    axios.delete(`http://localhost:9000/organizer/eventdelete/${darshanId}`)
+      .then(() => {
+        setDarshans(darshans.filter(darshan => darshan._id !== darshanId));
+        alert('Darshan deleted');
+      })
+      .catch((error) => {
+        console.error('Error deleting darshan:', error);
+      });
   };
 
   const viewDarshanDetails = (darshan) => {
@@ -47,9 +40,9 @@ const Odarshan = () => {
 
   return (
     <div>
-      <Onavbar />
+      <Anavbar />
       <br />
-      <h1 className='text-center'>My Darshans</h1>
+      <h1 className='text-center'>Darshans</h1>
       <br />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Table striped bordered hover style={{ width: "70%" }}>
@@ -59,9 +52,6 @@ const Odarshan = () => {
               <th>Darshan Name</th>
               <th>Open</th>
               <th>Close</th>
-              <th>Normal Price</th>
-              <th>VIP Price</th>
-              
               <th>Operation</th>
             </tr>
           </thead>
@@ -69,17 +59,14 @@ const Odarshan = () => {
             {darshans.map((darshan, index) => (
               <tr key={darshan._id}>
                 <td>{index + 1}</td>
-                <td>{darshan.description.slice(0, 50)}</td>
+                <td>{darshan.description}</td>
                 <td>{darshan.open}</td>
                 <td>{darshan.close}</td>
-                <td>{darshan.prices.normal}</td>
-                <td>{darshan.prices.vip}</td>
-                
                 <td>
                   <Button onClick={() => viewDarshanDetails(darshan)} style={{ marginBottom: '12px' }}>
                     View
                   </Button>
-                  <Link to={`/editdarshan/${darshan._id}`} style={{ color: 'blue', textDecoration: 'none', marginRight: '10px' }}>
+                  <Link to={`/darshanedit/${darshan._id}`} style={{ color: 'blue', textDecoration: 'none', marginRight: '10px' }}>
                     <FaEdit />
                   </Link>
                   <Button onClick={() => deleteDarshan(darshan._id)} style={{ border: 'none', color: 'red', background: 'none' }}>
@@ -109,7 +96,34 @@ const Odarshan = () => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                  {/* Render detailed information of selectedDarshan */}
+                  <div>
+                    <img src={`http://localhost:9000/organizer/${selectedDarshan.templeImage}`} alt={selectedDarshan.templeName} style={{ height: "80px", width: "120px" }} />
+                  </div>
+                  <div>
+                    <p>Darshan Name:</p>
+                    <p>{selectedDarshan.description}</p>
+                  </div>
+                  
+                  <div>
+                    <p>Timings:</p>
+                    <p>{selectedDarshan.open} - {selectedDarshan.close}</p>
+                  </div>
+                  <div>
+                    <p>Location:</p>
+                    <p>{selectedDarshan.location}</p>
+                  </div>
+                  <div>
+                    <p>Normal Price:</p>
+                    <p>{selectedDarshan.prices.normal}</p>
+                  </div>
+                  <div>
+                    <p>VIP Price:</p>
+                    <p>{selectedDarshan.prices.vip}</p>
+                  </div>
+                  <div>
+                    <p>Description:</p>
+                    <p>{selectedDarshan.description}</p>
+                  </div>
                 </div>
               </Card>
               <Button onClick={closeDetails} className="mt-4">
@@ -123,4 +137,4 @@ const Odarshan = () => {
   );
 };
 
-export default Odarshan;
+export default Adarshan;

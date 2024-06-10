@@ -24,21 +24,21 @@ const NavBar = () => {
           alt='background'
         />
         <div>
-        <Link to='home' smooth={true} duration={500} onClick={scrollToTop}  offset={-80}>
-        <img
-            src={logo}
-            style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              marginLeft: '35px',
-              marginTop: '8px',
-              cursor:"pointer"
-            }}
-            alt='logo'
-          />
-        </Link>
-         
+          <Link to='home' smooth={true} duration={500} onClick={scrollToTop} offset={-80}>
+            <img
+              src={logo}
+              style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                marginLeft: '35px',
+                marginTop: '8px',
+                cursor: "pointer"
+              }}
+              alt='logo'
+            />
+          </Link>
+
           <h4>DarshanEase</h4>
         </div>
         <img
@@ -49,48 +49,48 @@ const NavBar = () => {
       </div>
       <div>
         <nav className='nav1'>
-        <p className='p1'>
-        <Link to='home' smooth={true} duration={500} onClick={scrollToTop}  offset={-80}>
+          <p className='p1'>
+            <Link to='home' smooth={true} duration={500} onClick={scrollToTop} offset={-80}>
               Home
-        </Link>
-       </p>
-<p className='p2'>
-<Link to='temples' smooth={true} duration={500}  offset={-120}>
-  Temples
-</Link>
-</p>
-<p className='p4'>
-<Link to='about' smooth={true} duration={500} offset={-140}>
-  About
-</Link>
-</p>
-<p className='p3'>
-<Link to='services' smooth={true} duration={500} offset={-140}>
-  Services
-</Link>
-</p>
+            </Link>
+          </p>
+          <p className='p2'>
+            <Link to='temples' smooth={true} duration={500} offset={-120}>
+              Temples
+            </Link>
+          </p>
+          <p className='p4'>
+            <Link to='about' smooth={true} duration={500} offset={-140}>
+              About
+            </Link>
+          </p>
+          <p className='p3'>
+            <Link to='services' smooth={true} duration={500} offset={-140}>
+              Services
+            </Link>
+          </p>
 
 
-<p className='p5'>
-<Link to='contact' smooth={true} duration={500}  offset={-100}>
-  Contact us
-</Link>
-</p>
+          <p className='p5'>
+            <Link to='contact' smooth={true} duration={500} offset={-100}>
+              Contact us
+            </Link>
+          </p>
 
-<p className='p6'>
-<div className='dropdown'>
-            <button className='dropbtn' onClick={toggleDropdown}>
-              Login
-            </button>
-            {isDropdownOpen && (
-              <div className='dropdown-content'>
-                <RouterLink to='/ulogin'>User</RouterLink>
-                <RouterLink to='/ologin'>Organizer</RouterLink>
-                <RouterLink to='/alogin'>Admin</RouterLink>
-              </div>
-            )}
-          </div>
-</p>
+          <p className='p6'>
+            <div className='dropdown'>
+              <button className='dropbtn' onClick={toggleDropdown}>
+                Login
+              </button>
+              {isDropdownOpen && (
+                <div className='dropdown-content'>
+                  <RouterLink to='/ulogin'>User</RouterLink>
+                  <RouterLink to='/ologin'>Organizer</RouterLink>
+                  <RouterLink to='/alogin'>Admin</RouterLink>
+                </div>
+              )}
+            </div>
+          </p>
 
         </nav>
       </div>

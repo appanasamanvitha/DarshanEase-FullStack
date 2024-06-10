@@ -1,15 +1,12 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import t3 from '../assets/t3.jpg'
-import t8 from '../assets/t8.jpg'
-import t7 from '../assets/t7.jpg'
-import t5 from '../assets/t5.jpg'
-import t4 from '../assets/t4.jpeg'
-
-const TempleCard = ({ imageSrc, title, description }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+import React, { useState } from 'react';
+import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import bg from '../assets/bg2.png'
+import bgm from '../assets/bg3.png'
+import bgs from '../assets/bg4.png'
+const Temples = () => {
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseOver = () => {
     setIsHovered(true);
@@ -20,77 +17,183 @@ const TempleCard = ({ imageSrc, title, description }) => {
   };
 
   return (
-    <Card style={{ width: "25rem", margin: "10px" }} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      {isHovered ? (
-        <Card.Body>
-          <Card.Text>
-            <strong style={{ color: "orange" }}>Advance Darshan</strong> <br /> <br />
-            <strong>{title}</strong> <br /> <br />
-            <p>{description}</p>
-          </Card.Text>
-        </Card.Body>
-      ) : (
-        <div>
-          <Card.Img variant="top" src={imageSrc} alt={title} style={{ width: "500px", height: "200px" }} />
-        </div>
-      )}
-    </Card>
-  );
-};
+    <div className='content' id='temples' style={{backgroundImage:`url(${bg})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+      <h1 className='text-center'>Temples</h1>
+      <div className='d-flex flex-wrap justify-content-center'>
+        {/* Temple 1 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Shri Thakur Banke Bihari Ji Mandir</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src="https://d3k1i85mml78tf.cloudfront.net/Blogs/1677258515580_post_image_1.jpg"
+                alt='Shri Thakur Banke Bihari Ji Mandir'
+              />
+            )}
+          </Card>
+        </Link>
 
-const Temples = () => {
-  return (
-    <div className="content" id="temples">
-      <h1 className="text-center">Temples</h1>
-      <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", marginRight: "20px" }}>
-          <Link to="/ulogin">
-            <TempleCard
-              imageSrc={t3}
-              title="Shri Thakur Banke Bihari Ji Mandir"
-              description="to Register Shri Thakur Banke Bihari Ji Mandir Online Darshan Booking"
-            />
-          </Link>
-          <Link to="/ulogin" >
-            <TempleCard
-              imageSrc={t7}
-              title="Shiv Khori Mandir"
-              description="Click here to Register Shiv Khori Mandir Online Darshan Booking"
-            />
-          </Link>
-        </div>
-        <div style={{ display: "flex", marginRight: "50px" }}>
-          <Link to="/ulogin" >
-            <TempleCard
-              imageSrc={t3}
-              title="Tirupati Tirumala Temple"
-              description="Click here to Register Tirupati Tirumala Temple Online Darshan Booking"
-            />
-          </Link>
-          <Link to="/ulogin" >
-            <TempleCard
-              imageSrc={t8}
-              title="Padmanabaswamy Temple"
-              description="Click here to Register Padmanabaswamy Temple Online Darshan Booking"
-            />
-          </Link>
-        </div>
-        <div style={{ display: "flex" }}>
-          <Link to="/ulogin">
-            <TempleCard
-              imageSrc={t4}
-              title="Shirdi Sai Baba Mandir"
-              description="Click here to Register Shirdi Sai Baba Mandir Online Darshan Booking"
-            />
-          </Link>
-          <Link to="/ulogin" style={{ textDecoration: "none" }}>
-            <TempleCard
-              imageSrc={t5}
-              title="Golden Temple"
-              description="Click here to Register Golden Temple Online Darshan Booking"
-            />
-          </Link>
-        </div>
+        {/* Temple 2 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Shiv Khori Mandir</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Shiv_khori_2.jpg/1200px-Shiv_khori_2.jpg'
+                alt='Shiv Khori Mandir'
+              />
+            )}
+          </Card>
+        </Link>
+
+        {/* Temple 3 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}} >
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Tirupati Tirumala Temple</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src='https://upload.wikimedia.org/wikipedia/commons/4/4e/Tirumala_090615.jpg'
+                alt='Tirupati Tirumala Temple'
+              />
+            )}
+          </Card>
+        </Link>
+
+        {/* Temple 4 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Padmanabhaswamy Temple</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src='https://imageio.forbes.com/blogs-images/jimdobson/files/2016/05/Sree_Padmanabhaswamy_Temple.jpg?height=459&width=711&fit=bounds'
+                alt='Padmanabhaswamy Temple'
+              />
+            )}
+          </Card>
+        </Link>
+
+        {/* Temple 5 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Shirdi Sai Baba Mandir</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src='https://upload.wikimedia.org/wikipedia/commons/e/e4/Sai_baba_samadhi_mandir_.jpg'
+                alt='Shirdi Sai Baba Mandir'
+              />
+            )}
+          </Card>
+        </Link>
+
+        {/* Temple 6 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Golden Temple</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src='https://upload.wikimedia.org/wikipedia/commons/9/94/The_Golden_Temple_of_Amrithsar_7.jpg'
+                alt='Golden Temple'
+              />
+            )}
+          </Card>
+        </Link>
+
+        {/* Temple 7 */}
+        <Link to='/ulogin'>
+          <Card
+            style={{ width: '18rem', margin: '10px' }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            {isHovered ? (
+              <Card.Body style={{backgroundImage:`url(${bgm})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}}>
+                <Card.Text>
+                  <strong style={{ color: 'orange' }}>Advance Darshan</strong> <br /> <br />
+                  <strong>Iskcon Temple</strong> <br /> <br />
+                  <p>Click here to register for online darshan booking.</p>
+                </Card.Text>
+              </Card.Body>
+            ) : (
+              <Card.Img
+                variant='top'
+                src='https://imgcld.yatra.com/ytimages/image/upload/v1461929837/Delhi-Iskcon_Temple.jpg'
+                alt='Temple 7'
+              />
+            )}
+          </Card>
+        </Link>
       </div>
     </div>
   );

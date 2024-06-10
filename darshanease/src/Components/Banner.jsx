@@ -1,10 +1,10 @@
 import React from 'react';
-import t8 from '../assets/t8.jpg';
+import t8 from '../assets/t7.jpg';
 
 const Banner = () => {
   return (
-    <div style={{ marginBottom: "50px" }}>
-      <div style={{ marginLeft: "260px" }}>
+    <div>
+      <div style={{ marginLeft: "220px" }}>
         <img
           src={t8}
           alt="Banner image"
@@ -18,6 +18,17 @@ const Banner = () => {
           </div>
         </div>
       </div>
+      <h3 style={{
+        textAlign: "center",
+        fontFamily: 'cursive',
+        fontSize: '2rem',
+        fontWeight: 'bold',
+        color: '#1a1a1a', // Dark gray color
+        marginTop: '30px',
+        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', // Adds a subtle shadow for depth
+      }}>
+        Dive into tranquility with Darshan Ease: Where every journey is a step towards spiritual bliss.
+      </h3>
     </div>
   );
 }

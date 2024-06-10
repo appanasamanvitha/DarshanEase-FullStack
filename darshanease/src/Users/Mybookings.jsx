@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import Unavbar from './Unavbar';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
-
 import QRCode from "react-qr-code";
 import { FaDownload } from 'react-icons/fa';
 import Footer from '../Components/Footer';
 
 function Mybookings() {
-  const [items, setItems] = useState([]);  
+  const [items, setItems] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const navigate = useNavigate();
   const pdref = useRef();
@@ -20,7 +19,7 @@ function Mybookings() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       axios
-        .get(`http://localhost:7000/user/getbookings/${user.id}`)
+        .get(`http://localhost:9000/user/getbookings`)
         .then((response) => {
           const taskData = response.data;
           setItems(taskData);
@@ -45,7 +44,7 @@ function Mybookings() {
     imagePromises.push(
       new Promise((resolve) => {
         const img = new Image();
-        img.src = `http://localhost:7000/organizer/${item.templeImage}`;
+        img.src = `http://localhost:9000/organizer/${item.templeImage}`;
         img.onload = () => resolve(img);
       })
     );
@@ -87,9 +86,9 @@ function Mybookings() {
   };
 
   return (
-    <div>
+    <div >
       <Unavbar />
-      <div>
+      <div style={{ paddingTop: '100px', marginLeft: '65px', marginRight: '65px' }}>
         <h1 className='text-center'>My Bookings</h1>
         <div>
           {items.map((item) => {
@@ -100,100 +99,63 @@ function Mybookings() {
                 key={item._id}
                 style={{
                   width: '90%',
-                  marginLeft: '65px',
+                  margin: '0 auto',
                   backgroundColor: '#fff',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   borderRadius: '8px',
-                  paddingTop: '15px',
+                  padding: '15px',
                   marginBottom: '35px',
                 }}
+                ref={pdref}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-around',}} ref={pdref}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <img src={`http://localhost:7000/organizer/${item.templeImage}`} style={{ height: '80px' }} />
+                    <img src={`http://localhost:9000/organizer/${item.templeImage}`} style={{ height: '80px' }} alt="Temple" />
                   </div>
-                  {/* ... Other details */}
-                  <div >
-    <QRCode
-    size={86}
-    value={item._id.slice(0, 10)}
-    viewBox={`0 0 256 256`}
-    />
-</div>
-<div>
+                  <div>
+                    <QRCode
+                      size={86}
+                      value={item._id.slice(0, 10)}
+                      viewBox={`0 0 256 256`}
+                    />
+                  </div>
+                  <div>
                     <p>BookingId:</p>
                     <p>{item._id.slice(0, 10)}</p>
-                  </div>
-                  <div>
-                    <p>Temple Name:</p>
-                    <p>{item.templeName}</p>
                   </div>
                   <div>
                     <p>Darshan Name:</p>
                     <p>{item.darshanName}</p>
                   </div>
-                  {/* <div>
-                    <p>Address</p>
-                    <p>{item.location}</p>
-                  </div> */}
-              
                   <div>
                     <p>BookingDate</p>
                     <p>{item.BookingDate}</p>
                   </div>
-                  <div>
-                    <p>Darshan Timing</p>
-                    <p>{item.open}-{item.close}</p>
-                  </div>
-                  <div>
-                    <p>No of Tickets</p>
-                    <p>{item.quantity}</p>
-                  </div>
-                  <div>
-                    <p>Price</p>
-                    <p>₹{item.totalamount}</p>
-                  </div>
-                  {/* <div>
-                    <p>Status</p>
-                    <p>{status}</p>
-                  </div> */}
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '8px' }}>
-  <Button
-    onClick={() => {
-      setSelectedCard(item);
-      downloadpdf();
-    }}
-    style={{
-      backgroundColor: 'green',
-      transition: 'background-color 0.3s ease-in-out',
-      borderStyle:"none"
-    }}
-    onMouseEnter={(e) => (e.target.style.backgroundColor = '#1EC000')}
-    onMouseLeave={(e) => (e.target.style.backgroundColor = 'green')}
-  >
-    <FaDownload />
-  </Button>
-</div>
-
-             
+                  <Button
+                    onClick={() => {
+                      setSelectedCard(item);
+                      downloadpdf();
+                    }}
+                    style={{
+                      backgroundColor: 'green',
+                      transition: 'background-color 0.3s ease-in-out',
+                      borderStyle: "none"
+                    }}
+                    onMouseEnter={(e) => (e.target.style.backgroundColor = '#1EC000')}
+                    onMouseLeave={(e) => (e.target.style.backgroundColor = 'green')}
+                  >
+                    <FaDownload />
+                  </Button>
+                </div>
               </Card>
             );
           })}
         </div>
       </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-    <Footer/>
+      <Footer style={{ width: '100%', position: 'fixed', bottom: '0' }} />
     </div>
   );
 }
